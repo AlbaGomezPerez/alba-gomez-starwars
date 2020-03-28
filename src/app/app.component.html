@@ -1,5 +1,6 @@
 
 <div class="content" role="main">
+  <div class="header-image">
   <div class="center-content">
     <h1 class="main-title">Starships</h1>
     <div (click)="showAttributeConsole()" class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -25,35 +26,22 @@
         <input type="radio" name="options" id="option7"> Passengers
       </label>
     </div>
+  </div>
+  </div>
 
 
 
 
-
-  <div class="container progress-background">
-    <span class="progress-name">Nave espacial</span>
+  <div class="container progress-background" *ngFor="let character of harry">
+    <span class="progress-name">{{character.name}}</span>
     <div class="progress" style="">
       <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-    <span class="progress-name">Nave espacial</span>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-    <span class="progress-name">Nave espacial</span>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-      <p class="right progress-value" style="color: white">75%</p>
-    </div>
-    <span class="progress-name">Nave espacial</span>
-    <div class="progress">
-      <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
   </div>
 
 
     <router-outlet></router-outlet>
   </div>
-</div>
 
 
 
