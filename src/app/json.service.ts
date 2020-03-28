@@ -10,7 +10,9 @@ export class JsonService {
 
 
   getJson(url: string, orderCriteria: string) {
-    return this.http.post(url, '{ "query": "query { allStarships(orderBy: name_DESC){ id name crew} } " }', {
+    const orderParam = orderCriteria;
+    console.log('soy el ' + orderParam);
+    return this.http.post(url, '{ "query": "query { allStarships(orderBy: ' + orderParam + ' ){ cargoCapacity id name crew} } " }', {
       headers: {
         'Content-Type' : 'application/json',
         'Access-Control-Allow-Origin': '*',
