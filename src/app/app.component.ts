@@ -17,12 +17,10 @@ export class AppComponent {
 
 
   requestStarships(orderCriteria) {
-    console.log(orderCriteria);
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
         //TODO comprobar si starships["data"] tiene datos y eliminar consoles
         this.ships = starships["data"].allStarships;
-        console.log(starships["data"].allStarships);
       },
       error: error => console.error('There was an error!', error) //TODO mostrar mensaje de error en la vista
     });
