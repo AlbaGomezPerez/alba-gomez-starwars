@@ -12,7 +12,7 @@ export class JsonService {
   getJson(url: string, orderCriteria: string) {
     const orderParam = orderCriteria;
     console.log('soy el ' + orderParam);
-    return this.http.post(url, '{ "query": "query { allStarships(orderBy: ' + orderParam + ' ){ cargoCapacity id name crew} } " }', {
+    return this.http.post(url, '{ "query": "query { allStarships(orderBy: ' + orderParam + ' ){ cargoCapacity costInCredits id name crew hyperdriveRating length maxAtmospheringSpeed passengers} } " }', {
       headers: {
         'Content-Type' : 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -20,3 +20,10 @@ export class JsonService {
     });
   }
 }
+
+
+
+
+
+
+
