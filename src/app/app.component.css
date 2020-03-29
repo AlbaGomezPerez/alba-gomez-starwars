@@ -6,6 +6,7 @@
 .header-image {
   background-image: url("./../images/space.jpg");
   background-size: cover;
+  height: 100px;
 }
 
 .main-title {

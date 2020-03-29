@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {JsonService} from './json.service';
+import {JsonService} from './home/json.service';
 
 
 @Component({
