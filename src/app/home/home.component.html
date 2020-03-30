@@ -31,14 +31,12 @@
 
 
 
-  <div class="container progress-background" *ngFor="let character of ships">
-    <span class="progress-name">{{character.name}}</span>
+  <div class="container progress-background" *ngFor="let data of ships">
+    <span class="progress-name">{{data.name}}</span>
     <div class="progress" style="">
-      <div class="progress-bar" role="progressbar" style="width: {{character.crew}}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="7400"></div>
+      <div class="progress-bar" role="progressbar" style="width: {{data.percentage}}%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="7400"></div>
     </div>
-    <ul>
-      <li>{{character.crew}}</li>
-    </ul>
+    <span>{{data.percentage}}</span>
   </div>
 
   <router-outlet></router-outlet>

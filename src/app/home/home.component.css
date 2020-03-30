@@ -1,0 +1,45 @@
+/* Dropdown button */
+.dropdown {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4%;
+}
+.btn-secondary {
+  background-color: black;
+  width: 80%;
+  color: grey;
+}
+.dropdown-menu {
+  width: 80%;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  margin: 4% 2% 4% 2%;
+}
+
+.progress-background {
+  background-color: rgba(37, 102, 99, 0.3);
+}
+.progress {
+  background-color: transparent;
+  height: 30px;
+  box-shadow: none;
+}
+
+.progress-bar {
+  background: linear-gradient(95deg, rgb(73, 20, 66) 0%, rgba(210,182,210,1) 100%);
+  border: 1px solid grey;
+}
+
+.progress-name {
+  color: white;
+  font-size: 20px;
+}
+
+.progress-value {
+  font-size: 20px;
+  color: white;
+  margin-left: 2%;
+}
