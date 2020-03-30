@@ -7,57 +7,64 @@ import {JsonService} from './json.service';
 })
 
 export class HomeComponent {
-  ships = [];
   constructor(public json: JsonService) {
     this.requestStarships('cargoCapacity_DESC');
   }
+  ships = [];
+  shipAttribute = '';
 
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
-        //TODO comprobar si starships["data"] tiene datos y eliminar consoles
-        this.ships = starships["data"].allStarships;
+        //TODO comprobar si starships["data"] tiene datos
+        const shipsInfo = starships["data"].allStarships;
 
-        let shipAttribute = '';
         if (orderCriteria === 'cargoCapacity_DESC') {
-          shipAttribute = 'cargoCapacity';
+          this.shipAttribute = 'cargoCapacity';
         } else if (orderCriteria === 'costInCredits_DESC') {
-          shipAttribute = 'costInCredits';
+          this.shipAttribute = 'costInCredits';
         } else if (orderCriteria === 'crew_DESC') {
-          shipAttribute = 'crew';
+          this.shipAttribute = 'crew';
         } else if (orderCriteria === 'hyperdriveRating_DESC') {
-          shipAttribute = 'hyperdriveRating';
+          this.shipAttribute = 'hyperdriveRating';
         } else if (orderCriteria === 'length_DESC') {
-          shipAttribute = 'length';
+          this.shipAttribute = 'length';
         } else if (orderCriteria === 'maxAtmospheringSpeed_DESC') {
-          shipAttribute = 'maxAtmospheringSpeed';
+          this.shipAttribute = 'maxAtmospheringSpeed';
         } else {
-          shipAttribute = 'passengers';
+          this.shipAttribute = 'passengers';
         }
-        this.maxAttributeValueByShipAttribute(shipAttribute);
 
-        //TODO recorrer los datos y coger la variable apropiada en base al orderCriteria
-        //CALCULAR el porcentaje: sacar el valor máximo de la variable √ y luego hacer la regla de 3 (crear una funcion)
-        // rellenar una variable que contenga el valor del porcentaje
+        const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
+        this.ships = shipsInfo.map(ship => {
+          return {
+            name: ship.name,
+            percentage: this.percentageValue(maxValue, ship[this.shipAttribute]),
+            attributeValue: ship[this.shipAttribute]
+          };
+        });
+
+
         // usar esta nueva variable en la vista
       },
       error: error => console.error('There was an error!', error) //TODO mostrar mensaje de error en la vista
     });
   }
-
-
-  maxAttributeValueByShipAttribute(shipAttribute: string) {
-    console.log(shipAttribute);
-    Math.max.apply(Math, this.ships.map( ship => {
-      console.log(ship[shipAttribute]);
+  maxAttributeValueByShipAttribute(shipAttribute: string, ships) {
+      return Math.max.apply(Math, ships.map( ship => {
       return ship[shipAttribute];
     }));
   }
 
-  percentageCredits() {
 
+
+  percentageValue(maxValue, attributeValue) {
+    const percentage2 = (attributeValue / maxValue) * 100;
+    console.log('valor atributo: ' + attributeValue);
+    console.log('valor máximo: ' + maxValue);
+    console.log('porcentaje: ' + percentage2);
+    return (attributeValue / maxValue) * 100;
   }
-
 }
 
 
