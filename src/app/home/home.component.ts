@@ -37,11 +37,18 @@ export class HomeComponent {
         }
 
         const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
+        let nullValue = 0;
         this.ships = shipsInfo.map(ship => {
+          console.log(ship[this.shipAttribute]);
+          if (ship[this.shipAttribute] === null) {
+            nullValue = 0;
+          } else {
+            nullValue = ship[this.shipAttribute];
+          }
           return {
             name: ship.name,
             percentage: this.percentageValue(maxValue, ship[this.shipAttribute]),
-            attributeValue: ship[this.shipAttribute]
+            attributeValue: nullValue
           };
         });
 
@@ -60,10 +67,7 @@ export class HomeComponent {
 
 
   percentageValue(maxValue, attributeValue) {
-    const percentage2 = (attributeValue / maxValue) * 100;
-    console.log('valor atributo: ' + attributeValue);
-    console.log('valor máximo: ' + maxValue);
-    console.log('porcentaje: ' + percentage2);
+    const percentage2 = (attributeValue / maxValue) * 100
     return (attributeValue / maxValue) * 100;
   }
 }
