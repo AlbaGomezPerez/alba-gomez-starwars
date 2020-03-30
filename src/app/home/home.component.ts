@@ -9,7 +9,7 @@ import {JsonService} from './json.service';
 
 export class HomeComponent {
   constructor(public json: JsonService) {
-    this.requestStarships('cargoCapacity_DESC');
+    this.requestStarships('hyperdriveRating_DESC');
   }
   ships = [];
   shipAttribute = '';

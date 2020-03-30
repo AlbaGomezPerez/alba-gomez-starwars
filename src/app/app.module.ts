@@ -8,10 +8,9 @@ import { HttpClientModule } from '@angular/common/http';
 import {DetailsComponent} from './details/details.component';
 import {HomeComponent} from './home/home.component';
 
-const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'ships', component: DetailsComponent }
-];
+/*const appRoutes: Routes = [
+  { path: '', component: AppComponent },
+];*/
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    // RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
