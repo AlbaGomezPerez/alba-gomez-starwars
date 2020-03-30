@@ -19,12 +19,9 @@ export class AppComponent {
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
-        //TODO comprobar si starships["data"] tiene datos y eliminar consoles
         this.ships = starships["data"].allStarships;
       },
-      error: error => console.error('There was an error!', error) //TODO mostrar mensaje de error en la vista
+      error: error => console.error('There was an error!', error)
     });
   }
-
-
 }

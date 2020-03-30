@@ -17,7 +17,6 @@ export class HomeComponent {
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
-        //TODO comprobar si starships["data"] tiene datos
         const shipsInfo = starships["data"].allStarships;
 
         if (orderCriteria === 'cargoCapacity_DESC') {
@@ -39,7 +38,6 @@ export class HomeComponent {
         const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
         let nullValue = 0;
         this.ships = shipsInfo.map(ship => {
-          console.log(ship[this.shipAttribute]);
           if (ship[this.shipAttribute] === null) {
             nullValue = 0;
           } else {
@@ -51,11 +49,8 @@ export class HomeComponent {
             attributeValue: nullValue
           };
         });
-
-
-        // usar esta nueva variable en la vista
       },
-      error: error => console.error('There was an error!', error) //TODO mostrar mensaje de error en la vista
+      error: error => console.error('There was an error!', error)
     });
   }
   maxAttributeValueByShipAttribute(shipAttribute: string, ships) {
@@ -64,10 +59,7 @@ export class HomeComponent {
     }));
   }
 
-
-
   percentageValue(maxValue, attributeValue) {
-    const percentage2 = (attributeValue / maxValue) * 100
     return (attributeValue / maxValue) * 100;
   }
 }
