@@ -9,7 +9,7 @@ import {JsonService} from './json.service';
 
 export class HomeComponent {
   constructor(public json: JsonService) {
-    this.requestStarships('hyperdriveRating_DESC');
+    this.requestStarships('hyperdriveRating_DESC'); //quitar del constructor y meter en ngOnInit
   }
   ships = [];
   shipAttribute = '';
@@ -17,8 +17,11 @@ export class HomeComponent {
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
+        //comprobar si starships tiene algo dentor para que no de un error
         const shipsInfo = starships["data"].allStarships;
 
+        //meter en una funcion
+        //meter en un switch
         if (orderCriteria === 'cargoCapacity_DESC') {
           this.shipAttribute = 'cargoCapacity';
         } else if (orderCriteria === 'costInCredits_DESC') {
@@ -38,6 +41,8 @@ export class HomeComponent {
         const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
         let attribute = 0;
         this.ships = shipsInfo.map(ship => {
+
+          //Refactorizar un método y meter undefined
           if (ship[this.shipAttribute] === null) {
             attribute = 0;
           } else {
@@ -45,22 +50,41 @@ export class HomeComponent {
           }
           return {
             name: ship.name,
-            percentage: this.percentageValue(maxValue, ship[this.shipAttribute]),
+            percentage: this.percentageValue(maxValue, attribute),
             attributeValue: attribute
           };
         });
       },
-      error: error => console.error('There was an error!', error)
+      error: error => {
+        console.error('There was an error!', error);
+        //cambiar variable del estado indicando que hay error
+      } //TODO mostrar mensaje de error
     });
   }
+
+  //TODO documentar
+  /**
+   *
+   * @param shipAttribute
+   * @param ships
+   */
   maxAttributeValueByShipAttribute(shipAttribute: string, ships) {
       return Math.max.apply(Math, ships.map( ship => {
-      return ship[shipAttribute];
-    }));
+        return ship[shipAttribute];
+      }));
   }
 
+  //TODO DOCUMENTAR
+  /**
+   *
+   * @param maxValue
+   * @param attributeValue
+   */
   percentageValue(maxValue, attributeValue) {
-    return (attributeValue / maxValue) * 100;
+    if(attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
+      return 0;
+    }
+    return (Math.log10(attributeValue) / Math.log10(maxValue)) * 100;
   }
 }
 
