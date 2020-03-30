@@ -8,7 +8,7 @@ import {JsonService} from './home/json.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'alba-gomez-starwars';
+  title = 'Starships';
   ships = [];
 
   constructor(public json: JsonService) {
