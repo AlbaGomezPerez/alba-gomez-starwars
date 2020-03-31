@@ -1,19 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {JsonService} from './json.service';
 
+
+//TODO Describir que hace el componente
+
+/**
+ *
+ */
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-
-//TODO Describir que hace el componente
-export class ListComponent {
-  constructor(public json: JsonService) {
-    this.requestStarships('hyperdriveRating_DESC'); //quitar del constructor y meter en ngOnInit
-  }
+export class ListComponent implements OnInit{
+  constructor(public json: JsonService) { }
   ships = [];
   shipAttribute = '';
+
+  ngOnInit() {
+    this.requestStarships('hyperdriveRating_DESC');
+  }
 
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({

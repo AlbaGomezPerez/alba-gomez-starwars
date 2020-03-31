@@ -11,17 +11,5 @@ export class AppComponent {
   title = 'Starships';
   ships = [];
 
-  constructor(public json: JsonService) {
-    this.requestStarships('cargoCapacity_DESC');
-  }
-
-
-  requestStarships(orderCriteria) {
-    this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
-      next: starships => {
-        this.ships = starships["data"].allStarships;
-      },
-      error: error => console.error('There was an error!', error)
-    });
-  }
+  constructor() { }
 }
