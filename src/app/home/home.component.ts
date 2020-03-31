@@ -36,7 +36,7 @@ export class HomeComponent {
           }
           return {
             name: ship.name,
-            percentage: this.percentageValue(maxValue, attribute),
+            percentage: this.createProgressValue(maxValue, attribute),
             attributeValue: attribute
           };
         });
@@ -48,7 +48,9 @@ export class HomeComponent {
     });
   }
 
-
+  /**
+   * Change orderCriteria by button checked
+   */
   attributeChecked(orderCriteria) {
     if (orderCriteria === 'cargoCapacity_DESC') {
       this.shipAttribute = 'cargoCapacity';
@@ -68,11 +70,8 @@ export class HomeComponent {
   }
 
 
-  //TODO documentar
   /**
-   *
-   * @param shipAttribute
-   * @param ships
+   * Get max value number into array
    */
   maxAttributeValueByShipAttribute(shipAttribute: string, ships) {
       return Math.max.apply(Math, ships.map( ship => {
@@ -80,14 +79,11 @@ export class HomeComponent {
       }));
   }
 
-  //TODO DOCUMENTAR
   /**
-   *
-   * @param maxValue
-   * @param attributeValue
+   * Generate value attribute to progress
    */
-  percentageValue(maxValue, attributeValue) {
-    if(attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
+  createProgressValue(maxValue, attributeValue) {
+    if (attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
       return 0;
     }
     return (Math.log10(attributeValue) / Math.log10(maxValue)) * 100;
