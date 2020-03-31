@@ -21,14 +21,13 @@ export class HomeComponent {
         //comprobar si starships tiene algo dentor para que no de un error
         const shipsInfo = starships["data"].allStarships;
 
-        //meter en un switch
         this.attributeChecked(orderCriteria);
 
         const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
         let attribute = 0;
         this.ships = shipsInfo.map(ship => {
 
-          //Refactorizar un método y meter undefined
+          //Refactorizar un método
           if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
             attribute = 0;
           } else {
@@ -51,7 +50,7 @@ export class HomeComponent {
   /**
    * Change orderCriteria by button checked
    */
-  attributeChecked(orderCriteria) {
+/*  attributeChecked2(orderCriteria) {
     if (orderCriteria === 'cargoCapacity_DESC') {
       this.shipAttribute = 'cargoCapacity';
     } else if (orderCriteria === 'costInCredits_DESC') {
@@ -66,6 +65,31 @@ export class HomeComponent {
       this.shipAttribute = 'maxAtmospheringSpeed';
     } else {
       this.shipAttribute = 'passengers';
+    }
+  }*/
+
+  attributeChecked(orderCriteria) {
+    switch (orderCriteria) {
+      case 'cargoCapacity_DESC':
+        this.shipAttribute = 'cargoCapacity';
+        break;
+      case 'costInCredits_DESC':
+        this.shipAttribute = 'costInCredits';
+        break;
+      case 'crew_DESC':
+        this.shipAttribute = 'crew';
+        break;
+      case 'hyperdriveRating_DESC':
+        this.shipAttribute = 'hyperdriveRating';
+        break;
+      case 'length_DESC':
+        this.shipAttribute = 'length';
+        break;
+      case 'maxAtmospheringSpeed_DESC':
+        this.shipAttribute = 'maxAtmospheringSpeed';
+        break;
+        default:
+        this.shipAttribute = 'passengers';
     }
   }
 
