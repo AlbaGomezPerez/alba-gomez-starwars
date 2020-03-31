@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {JsonService} from './json.service';
 
 
-//TODO Describir que hace el componente
-
 /**
- *
+ * Get data to the API
+ * Show the list with the starships with their values and their progress
  */
 @Component({
   selector: 'app-list',
@@ -22,25 +21,32 @@ export class ListComponent implements OnInit{
     this.requestStarships('hyperdriveRating_DESC');
   }
 
-  //TODO Documentar
+  /**
+   * Get data to the API
+   * Check the array contains data
+   * Show the list with attributes selected by the button
+   * @param orderCriteria : attribute to order
+   */
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
-        //comprobar si starships tiene algo dentor para que no de un error
-        // if(!esta vacio) {
-        const shipsInfo = starships["data"].allStarships;
+        if (this.ships === []) {
+          this.error = true;
+        } else {
+          const shipsInfo = starships["data"].allStarships;
 
-        this.setShipAttribute(orderCriteria);
+          this.setShipAttribute(orderCriteria);
 
-        const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
-        this.ships = shipsInfo.map(ship => {
-          const attribute = this.getAttributeValue(ship);
-          return {
-            name: ship.name,
-            percentage: this.getPercentageProgressValue(maxValue, attribute),
-            attributeValue: attribute
-          };
-        });
+          const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
+          this.ships = shipsInfo.map(ship => {
+            const attribute = this.getAttributeValue(ship);
+            return {
+              name: ship.name,
+              percentage: this.getPercentageProgressValue(maxValue, attribute),
+              attributeValue: attribute
+            };
+          });
+        }
       },
       error: error => {
         console.error('There was an error!', error);
@@ -50,20 +56,8 @@ export class ListComponent implements OnInit{
   }
 
   /**
-   *
-   * @param ship the entitiy
-   */
-  private getAttributeValue(ship) {
-    if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
-      return 0;
-    } else {
-      return ship[this.shipAttribute];
-    }
-  }
-
-  /**
    * Set ship attribute based on the given order criteria at the button checked
-   * @param orderCriteria
+   * @param orderCriteria : attribute to order
    */
   setShipAttribute(orderCriteria) {
     switch (orderCriteria) {
@@ -92,15 +86,31 @@ export class ListComponent implements OnInit{
 
   /**
    * Get max value number into array
+   * @param shipAttribute : value attribute
+   * @param ships : data array
    */
   maxAttributeValueByShipAttribute(shipAttribute: string, ships) {
-      return Math.max.apply(Math, ships.map( ship => {
-        return ship[shipAttribute];
-      }));
+    return Math.max.apply(Math, ships.map( ship => {
+      return ship[shipAttribute];
+    }));
+  }
+
+  /**
+   * Get attribute value and assign 0 to default and null attributes
+   * @param ship the entitiy
+   */
+  private getAttributeValue(ship) {
+    if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
+      return 0;
+    } else {
+      return ship[this.shipAttribute];
+    }
   }
 
   /**
    * Get percentage value attribute to progress
+   * @param maxValue : max value into array
+   * @param attributeValue : number of each attribute
    */
   getPercentageProgressValue(maxValue, attributeValue) {
     if (attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
