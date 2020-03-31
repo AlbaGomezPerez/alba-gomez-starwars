@@ -42,8 +42,8 @@ export class HomeComponent {
       },
       error: error => {
         console.error('There was an error!', error);
-        //cambiar variable del estado indicando que hay error
-      } //TODO mostrar mensaje de error
+        this.shipAttribute = 'There was an error!';
+      }
     });
   }
 
