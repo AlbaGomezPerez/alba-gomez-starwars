@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import {DetailsComponent} from './details/details.component';
-import {HomeComponent} from './home/home.component';
+import {ListComponent} from './list/list.component';
 
 /*const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -16,7 +16,7 @@ import {HomeComponent} from './home/home.component';
   declarations: [
     AppComponent,
     DetailsComponent,
-    HomeComponent
+    ListComponent
 
   ],
   imports: [

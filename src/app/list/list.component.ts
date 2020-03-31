@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import {JsonService} from './json.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
 
 //TODO Describir que hace el componente
-export class HomeComponent {
+export class ListComponent {
   constructor(public json: JsonService) {
     this.requestStarships('hyperdriveRating_DESC'); //quitar del constructor y meter en ngOnInit
   }
