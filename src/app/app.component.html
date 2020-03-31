@@ -1,17 +1,10 @@
 
-<div *ngIf="ships === []; else notShow">
-  <div class="header-image" >
-    <h1 class="main-title">{{title}}</h1>
-    <h4>hay errores</h4>
-  </div>
-</div>
-<router-outlet></router-outlet>
-
-<ng-template #notShow>
+<div>
   <div class="header-image" >
     <h1 class="main-title">{{title}}</h1>
     <app-list></app-list>
   </div>
-</ng-template>
+</div>
 <router-outlet></router-outlet>
+
 

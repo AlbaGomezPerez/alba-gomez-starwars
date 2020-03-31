@@ -9,7 +9,5 @@ import {JsonService} from './list/json.service';
 })
 export class AppComponent {
   title = 'Starships';
-  ships = [];
-
   constructor() { }
 }

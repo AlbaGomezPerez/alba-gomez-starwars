@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content" *ngIf="error === false">
     <div class="center-content">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary active">
@@ -33,4 +33,7 @@
     </div>
   </div>
   <router-outlet></router-outlet>
+</div>
+<div class="content" *ngIf="error">
+  I'm sorry. There was an error
 </div>

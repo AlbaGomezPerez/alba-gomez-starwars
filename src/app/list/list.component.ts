@@ -16,65 +16,56 @@ export class ListComponent implements OnInit{
   constructor(public json: JsonService) { }
   ships = [];
   shipAttribute = '';
+  error = false;
 
   ngOnInit() {
     this.requestStarships('hyperdriveRating_DESC');
   }
 
+  //TODO Documentar
   requestStarships(orderCriteria) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
       next: starships => {
         //comprobar si starships tiene algo dentor para que no de un error
+        // if(!esta vacio) {
         const shipsInfo = starships["data"].allStarships;
 
-        this.attributeChecked(orderCriteria);
+        this.setShipAttribute(orderCriteria);
 
         const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
-        let attribute = 0;
         this.ships = shipsInfo.map(ship => {
-
-          //Refactorizar un método
-          if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
-            attribute = 0;
-          } else {
-            attribute = ship[this.shipAttribute];
-          }
+          const attribute = this.getAttributeValue(ship);
           return {
             name: ship.name,
-            percentage: this.createProgressValue(maxValue, attribute),
+            percentage: this.getPercentageProgressValue(maxValue, attribute),
             attributeValue: attribute
           };
         });
       },
       error: error => {
         console.error('There was an error!', error);
-        this.shipAttribute = 'There was an error!';
+        this.error = true;
       }
     });
   }
 
   /**
-   * Change orderCriteria by button checked
+   *
+   * @param ship the entitiy
    */
-/*  attributeChecked2(orderCriteria) {
-    if (orderCriteria === 'cargoCapacity_DESC') {
-      this.shipAttribute = 'cargoCapacity';
-    } else if (orderCriteria === 'costInCredits_DESC') {
-      this.shipAttribute = 'costInCredits';
-    } else if (orderCriteria === 'crew_DESC') {
-      this.shipAttribute = 'crew';
-    } else if (orderCriteria === 'hyperdriveRating_DESC') {
-      this.shipAttribute = 'hyperdriveRating';
-    } else if (orderCriteria === 'length_DESC') {
-      this.shipAttribute = 'length';
-    } else if (orderCriteria === 'maxAtmospheringSpeed_DESC') {
-      this.shipAttribute = 'maxAtmospheringSpeed';
+  private getAttributeValue(ship) {
+    if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
+      return 0;
     } else {
-      this.shipAttribute = 'passengers';
+      return ship[this.shipAttribute];
     }
-  }*/
+  }
 
-  attributeChecked(orderCriteria) {
+  /**
+   * Set ship attribute based on the given order criteria at the button checked
+   * @param orderCriteria
+   */
+  setShipAttribute(orderCriteria) {
     switch (orderCriteria) {
       case 'cargoCapacity_DESC':
         this.shipAttribute = 'cargoCapacity';
@@ -94,11 +85,10 @@ export class ListComponent implements OnInit{
       case 'maxAtmospheringSpeed_DESC':
         this.shipAttribute = 'maxAtmospheringSpeed';
         break;
-        default:
+      default:
         this.shipAttribute = 'passengers';
     }
   }
-
 
   /**
    * Get max value number into array
@@ -110,9 +100,9 @@ export class ListComponent implements OnInit{
   }
 
   /**
-   * Generate value attribute to progress
+   * Get percentage value attribute to progress
    */
-  createProgressValue(maxValue, attributeValue) {
+  getPercentageProgressValue(maxValue, attributeValue) {
     if (attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
       return 0;
     }
