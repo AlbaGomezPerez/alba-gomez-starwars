@@ -7,6 +7,7 @@ import {JsonService} from './json.service';
   styleUrls: ['./home.component.css']
 })
 
+//TODO Describir que hace el componente
 export class HomeComponent {
   constructor(public json: JsonService) {
     this.requestStarships('hyperdriveRating_DESC'); //quitar del constructor y meter en ngOnInit
@@ -20,30 +21,15 @@ export class HomeComponent {
         //comprobar si starships tiene algo dentor para que no de un error
         const shipsInfo = starships["data"].allStarships;
 
-        //meter en una funcion
         //meter en un switch
-        if (orderCriteria === 'cargoCapacity_DESC') {
-          this.shipAttribute = 'cargoCapacity';
-        } else if (orderCriteria === 'costInCredits_DESC') {
-          this.shipAttribute = 'costInCredits';
-        } else if (orderCriteria === 'crew_DESC') {
-          this.shipAttribute = 'crew';
-        } else if (orderCriteria === 'hyperdriveRating_DESC') {
-          this.shipAttribute = 'hyperdriveRating';
-        } else if (orderCriteria === 'length_DESC') {
-          this.shipAttribute = 'length';
-        } else if (orderCriteria === 'maxAtmospheringSpeed_DESC') {
-          this.shipAttribute = 'maxAtmospheringSpeed';
-        } else {
-          this.shipAttribute = 'passengers';
-        }
+        this.attributeChecked(orderCriteria);
 
         const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
         let attribute = 0;
         this.ships = shipsInfo.map(ship => {
 
           //Refactorizar un método y meter undefined
-          if (ship[this.shipAttribute] === null) {
+          if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
             attribute = 0;
           } else {
             attribute = ship[this.shipAttribute];
@@ -61,6 +47,26 @@ export class HomeComponent {
       } //TODO mostrar mensaje de error
     });
   }
+
+
+  attributeChecked(orderCriteria) {
+    if (orderCriteria === 'cargoCapacity_DESC') {
+      this.shipAttribute = 'cargoCapacity';
+    } else if (orderCriteria === 'costInCredits_DESC') {
+      this.shipAttribute = 'costInCredits';
+    } else if (orderCriteria === 'crew_DESC') {
+      this.shipAttribute = 'crew';
+    } else if (orderCriteria === 'hyperdriveRating_DESC') {
+      this.shipAttribute = 'hyperdriveRating';
+    } else if (orderCriteria === 'length_DESC') {
+      this.shipAttribute = 'length';
+    } else if (orderCriteria === 'maxAtmospheringSpeed_DESC') {
+      this.shipAttribute = 'maxAtmospheringSpeed';
+    } else {
+      this.shipAttribute = 'passengers';
+    }
+  }
+
 
   //TODO documentar
   /**
