@@ -56,3 +56,22 @@
   padding-left: 2%;
   color: white;
 }
+
+.error-message {
+  color: white;
+  display: flex;
+  justify-content: center;
+  padding-top: 10%;
+}
+
+.error-content {
+  background-color: #301d33;
+  padding-bottom: 10%;
+  height: 100vh;
+}
+
+.error-image {
+  background-image: url("./../../images/dark.png");
+  width: 450px;
+  height: 450px;
+}
