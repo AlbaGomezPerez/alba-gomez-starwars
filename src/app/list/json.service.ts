@@ -19,7 +19,7 @@ export class JsonService {
   }
 }
 
-//TODO documentar
+// Define data types to Starship object
 export interface Starship {
   id: string;
   name: string;
@@ -32,12 +32,12 @@ export interface Starship {
   passengers: number;
 }
 
-//TODO documentar
+// Define array type to allStarships
 export interface StarshipsList {
   allStarships: Array<Starship>;
 }
 
-//TODO documentar
+// Assign starshipsList to data
 export interface SearchResponse {
   data: StarshipsList;
 }
