@@ -37,21 +37,36 @@ describe('ListComponent', () => {
         allStarships: [
           {
             id: 'id1',
-            name: 'Nave 1',
+            name: 'Starship 1',
             crew: 2,
-            hyperdriveRating: 100
+            hyperdriveRating: 100,
+            costInCredits: 65,
+            cargoCapacity: 7,
+            length: 54,
+            maxAtmospheringSpeed: 66,
+            passengers: 2
           } as Starship,
           {
             id: 'id2',
-            name: 'Nave 2',
+            name: 'Starship 2',
             crew: 3,
-            hyperdriveRating: 1000
+            hyperdriveRating: 1000,
+            costInCredits: 45,
+            cargoCapacity: 3,
+            length: 74,
+            maxAtmospheringSpeed: 68,
+            passengers: 6
           } as Starship,
           {
             id: 'id3',
-            name: 'Nave 3',
+            name: 'Starship 3',
             crew: 5,
-            hyperdriveRating: 10
+            hyperdriveRating: 10,
+            costInCredits: 35,
+            cargoCapacity: 17,
+            length: 80,
+            maxAtmospheringSpeed: 57,
+            passengers: 8
           } as Starship
         ] as Array<Starship>
       } as StarshipsList
@@ -71,36 +86,76 @@ describe('ListComponent', () => {
     expect(compiled.querySelectorAll('input[type=radio]').length).toEqual(7);
   });
 
-
-  it('Should show Nave 1 starship and it value for Crew is 6', () => {
+  it('should show 3 progresss bars', () => {
     fixture.detectChanges();
-    expect(compiled.querySelector('.progress-name').textContent).toContain('Nave 1');
+    expect(compiled.querySelectorAll('.progress div').length).toEqual(3);
+  });
+
+
+  it('Should show Starship 1 and it value for Crew is 6', () => {
+    fixture.detectChanges();
+    expect(compiled.querySelector('.progress-name').textContent).toContain('Starship 1');
     expect(compiled.querySelector('.attribute-value').textContent).toContain('100');
   });
 
 
   it('should get three objects as response', () => {
     listComponent.ngOnInit();
-    const expectedStarshipData = [{name: 'Nave 1', attributeValue: 100, percentage: (2 / 3) * 100},
-      {name: 'Nave 2', attributeValue: 1000, percentage: 100},
-      {name: 'Nave 3', attributeValue: 10, percentage: (1 / 3) * 100},
+    const expectedStarshipData = [{name: 'Starship 1', attributeValue: 100, percentage: (2 / 3) * 100},
+      {name: 'Starship 2', attributeValue: 1000, percentage: 100},
+      {name: 'Starship 3', attributeValue: 10, percentage: (1 / 3) * 100},
     ] as Array<StarshipData>;
     expect(listComponent.ships).toEqual(expectedStarshipData);
   });
 
-  it('should show 3 progresss bars', () => {
+  it('Should show the first value with button 2 cliked', () => {
     fixture.detectChanges();
-    expect(compiled.querySelectorAll('.progress div').length).toEqual(3);
+    const button = compiled.querySelector('#option2');
+    button.click();
+    expect(button.checked).toBeTruthy();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value').textContent).toContain(65);
   });
 
-  it('Should show 100 like a value attribute', () => {
-    fixture.detectChanges();
-    expect(compiled.querySelector('.attribute-value').textContent).toContain('100');
-  });
-
-  it('Should show Nave 3 starship in the first position', () => {
+  it('Should show the first value with button 3 cliked', () => {
     fixture.detectChanges();
     const button = compiled.querySelector('#option3');
+    button.click();
+    expect(button.checked).toBeTruthy();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value').textContent).toContain(2);
+  });
+
+  it('Should show the first value with button 1 cliked', () => {
+    fixture.detectChanges();
+    const button = compiled.querySelector('#option1');
+    button.click();
+    expect(button.checked).toBeTruthy();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value').textContent).toContain(7);
+  });
+
+  it('Should show the first value with button 5 cliked', () => {
+    fixture.detectChanges();
+    const button = compiled.querySelector('#option5');
+    button.click();
+    expect(button.checked).toBeTruthy();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value').textContent).toContain(54);
+  });
+
+  it('Should show the first value with button 6 cliked', () => {
+    fixture.detectChanges();
+    const button = compiled.querySelector('#option6');
+    button.click();
+    expect(button.checked).toBeTruthy();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value').textContent).toContain(66);
+  });
+
+  it('Should show the first value with button 7 cliked', () => {
+    fixture.detectChanges();
+    const button = compiled.querySelector('#option7');
     button.click();
     expect(button.checked).toBeTruthy();
     fixture.detectChanges();
