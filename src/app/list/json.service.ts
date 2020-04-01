@@ -5,10 +5,11 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 
+//TODO DOC
 export class JsonService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
+  //TODO DOC
   getJson(url: string, orderCriteria: string) {
     return this.http.post<SearchResponse>(url, '{ "query": "query { allStarships(orderBy: ' + orderCriteria + ' ){ cargoCapacity costInCredits id name crew hyperdriveRating length maxAtmospheringSpeed passengers} } " }', {
       headers: {
@@ -19,7 +20,9 @@ export class JsonService {
   }
 }
 
-// Define data types to Starship object
+/**
+ * Define data types to Starship object
+ */
 export interface Starship {
   id: string;
   name: string;
@@ -32,12 +35,16 @@ export interface Starship {
   passengers: number;
 }
 
-// Define array type to allStarships
+/**
+ *  Define array type to allStarships
+ */
 export interface StarshipsList {
   allStarships: Array<Starship>;
 }
 
-// Assign starshipsList to data
+/**
+ * Assign starshipsList to data
+ */
 export interface SearchResponse {
   data: StarshipsList;
 }
