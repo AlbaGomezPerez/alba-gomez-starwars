@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {JsonService, SearchResponse, Starship} from './json.service';
+import {StarshipsService, SearchResponse, Starship} from './starships.service';
 
 
 /**
@@ -11,7 +11,7 @@ import {JsonService, SearchResponse, Starship} from './json.service';
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit{
-  constructor(public json: JsonService) { }
+  constructor(public json: StarshipsService) { }
   ships: Array<StarshipData> = [];
   shipAttribute = '';
   error = false;

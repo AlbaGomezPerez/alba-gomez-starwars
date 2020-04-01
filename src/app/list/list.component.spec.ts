@@ -2,7 +2,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ListComponent, StarshipData} from './list.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {JsonService, SearchResponse, Starship, StarshipsList} from './json.service';
+import {StarshipsService, SearchResponse, Starship, StarshipsList} from './starships.service';
 import {Observable, of} from "rxjs";
 
 describe('ListComponent', () => {
@@ -10,7 +10,7 @@ describe('ListComponent', () => {
   let fixture: ComponentFixture<ListComponent>;
   let compiled;
   let listComponent: ListComponent;
-  let jsonService: JsonService;
+  let jsonService: StarshipsService;
   let apiResponse: SearchResponse;
 
   beforeEach(async(() => {
@@ -23,13 +23,13 @@ describe('ListComponent', () => {
         ListComponent
       ],
       providers: [
-        JsonService
+        StarshipsService
       ]
     }).compileComponents();
     fixture = TestBed.createComponent(ListComponent);
     compiled = fixture.nativeElement;
 
-    jsonService = TestBed.get(JsonService);
+    jsonService = TestBed.get(StarshipsService);
     listComponent = new ListComponent(jsonService);
 
     apiResponse = {

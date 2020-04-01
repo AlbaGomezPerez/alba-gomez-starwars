@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 /**
  * Post data to the API and create classes with the data
  */
-export class JsonService {
+export class StarshipsService {
   constructor(private http: HttpClient) {}
 
   /**
