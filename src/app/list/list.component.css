@@ -57,6 +57,7 @@
   color: white;
 }
 
+/* Error message section */
 .error-message {
   color: white;
   display: flex;
@@ -74,4 +75,6 @@
   background-image: url("./../../images/dark.png");
   width: 450px;
   height: 450px;
+  display: flex;
+  justify-content: center;
 }
