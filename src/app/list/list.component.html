@@ -34,6 +34,7 @@
   </div>
   <router-outlet></router-outlet>
 </div>
-<div class="content" *ngIf="error">
-  I'm sorry. There was an error
+<div class="error-content" *ngIf="error">
+  <div class="error-image"></div>
+  <p class="error-message">I'm sorry. There was an error</p>
 </div>
