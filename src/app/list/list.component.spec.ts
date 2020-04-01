@@ -56,12 +56,13 @@ describe('ListComponent', () => {
     expect(compiled.querySelector('.attribute-value')[3].textContent).toContain('3');
   });
 
-  button = querySelector('.btn-secondary input')[1].nativeElement;
-  it('Should show 3 like a value attribute', () => {
+
+  it('Should show Death Star starship in the first position', () => {
+    const button = compiled.querySelector('.btn-secondary input')[1].nativeElement;
     button.click();
     fixture.detectChanges();
     expect(button.checked).toBeTruthy();
-    expect(compiled.querySelector('.attribute-value')[3].textContent).toContain('3');
+    expect(compiled.querySelector('.attribute-value').textContent).toContain('Death Star');
   });
 
 });
