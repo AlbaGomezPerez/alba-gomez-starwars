@@ -6,13 +6,13 @@ import {HttpClient} from '@angular/common/http';
 })
 
 /**
- * Post data to the API and create classes with the data
+ * Service to get data from the API
  */
 export class StarshipsService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Post data to the API
+   * Search starships making a Post to the API
    */
   getJson(url: string, orderCriteria: string) {
     return this.http.post<SearchResponse>(url, '{ "query": "query { allStarships(orderBy: ' + orderCriteria + ' ){ cargoCapacity costInCredits id name crew hyperdriveRating length maxAtmospheringSpeed passengers} } " }', {

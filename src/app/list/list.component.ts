@@ -16,6 +16,9 @@ export class ListComponent implements OnInit{
   shipAttribute = '';
   error = false;
 
+  /**
+   * Launch default search
+   */
   ngOnInit() {
     this.requestStarships('hyperdriveRating_DESC');
   }
@@ -87,8 +90,9 @@ export class ListComponent implements OnInit{
    * Get max value number from the array
    * @param shipAttribute : attribute name
    * @param ships : starships array
+   * @return get the max attribute value
    */
-  maxAttributeValueByShipAttribute(shipAttribute: string, ships: Array<Starship>) {
+  maxAttributeValueByShipAttribute(shipAttribute: string, ships: Array<Starship>): number {
     return Math.max.apply(Math, ships.map( (ship: Starship) => {
       return ship[shipAttribute];
     }));
@@ -97,8 +101,9 @@ export class ListComponent implements OnInit{
   /**
    * Get attribute value or return 0 in case of attributes with default or null value
    * @param ship : starship data
+   * @return the value of the property in the given ship
    */
-  private getAttributeValue(ship: Starship) {
+  private getAttributeValue(ship: Starship): number {
     if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
       return 0;
     } else {
@@ -110,8 +115,9 @@ export class ListComponent implements OnInit{
    * Get percentage value from the attribute to show in the progress barchart
    * @param maxValue : max value from the array
    * @param attributeValue : number of the attribute value
+   * @return the percentage calculated
    */
-  getPercentageProgressValue(maxValue: number, attributeValue: number) {
+  getPercentageProgressValue(maxValue: number, attributeValue: number): number {
     if (attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
       return 0;
     }
@@ -119,7 +125,9 @@ export class ListComponent implements OnInit{
   }
 }
 
-// Assign data type of typescript to object values
+/**
+ * Assign data type of typescript to object values
+ */
 export interface StarshipData {
   name: string;
   percentage: number;
