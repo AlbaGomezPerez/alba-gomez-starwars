@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {JsonService} from './json.service';
+import {JsonService, SearchResponse, Starship} from './json.service';
 
 
 /**
- * Get data to the API
- * Show the list with the starships with their values and their progress
+ * Show the list with the starships with their values and percentage in a barchart
  */
 @Component({
   selector: 'app-list',
@@ -13,7 +12,7 @@ import {JsonService} from './json.service';
 })
 export class ListComponent implements OnInit{
   constructor(public json: JsonService) { }
-  ships = [];
+  ships: Array<StarshipData> = [];
   shipAttribute = '';
   error = false;
 
@@ -22,29 +21,29 @@ export class ListComponent implements OnInit{
   }
 
   /**
-   * Get data to the API
-   * Check the array contains data
-   * Show the list with attributes selected by the button
+   * Get data from the API
+   * Check the array contains data, if it doesn't show an error message
+   * Fill staships list with attributes selected by the button
    * @param orderCriteria : attribute to order
    */
-  requestStarships(orderCriteria) {
+  requestStarships(orderCriteria: string) {
     this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
-      next: starships => {
-        if (this.ships === []) {
+      next: (starships: SearchResponse ) => {
+        if (starships === undefined || starships === null || starships.data === undefined ||
+                   starships.data === null || starships.data.allStarships.length === 0)  {
           this.error = true;
         } else {
-          const shipsInfo = starships["data"].allStarships;
-
+          const allStarships: Array<Starship> = starships.data.allStarships;
           this.setShipAttribute(orderCriteria);
 
-          const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, shipsInfo);
-          this.ships = shipsInfo.map(ship => {
+          const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, allStarships);
+          this.ships = allStarships.map((ship: Starship) => {
             const attribute = this.getAttributeValue(ship);
             return {
               name: ship.name,
               percentage: this.getPercentageProgressValue(maxValue, attribute),
               attributeValue: attribute
-            };
+            } as StarshipData;
           });
         }
       },
@@ -59,7 +58,7 @@ export class ListComponent implements OnInit{
    * Set ship attribute based on the given order criteria at the button checked
    * @param orderCriteria : attribute to order
    */
-  setShipAttribute(orderCriteria) {
+  setShipAttribute(orderCriteria: string) {
     switch (orderCriteria) {
       case 'cargoCapacity_DESC':
         this.shipAttribute = 'cargoCapacity';
@@ -85,21 +84,21 @@ export class ListComponent implements OnInit{
   }
 
   /**
-   * Get max value number into array
-   * @param shipAttribute : value attribute
-   * @param ships : data array
+   * Get max value number from the array
+   * @param shipAttribute : attribute name
+   * @param ships : starships array
    */
-  maxAttributeValueByShipAttribute(shipAttribute: string, ships) {
-    return Math.max.apply(Math, ships.map( ship => {
+  maxAttributeValueByShipAttribute(shipAttribute: string, ships: Array<Starship>) {
+    return Math.max.apply(Math, ships.map( (ship: Starship) => {
       return ship[shipAttribute];
     }));
   }
 
   /**
-   * Get attribute value and assign 0 to default and null attributes
-   * @param ship the entitiy
+   * Get attribute value or return 0 in case of attributes with default or null value
+   * @param ship : starship data
    */
-  private getAttributeValue(ship) {
+  private getAttributeValue(ship: Starship) {
     if (ship[this.shipAttribute] === null || ship[this.shipAttribute] === undefined) {
       return 0;
     } else {
@@ -108,11 +107,11 @@ export class ListComponent implements OnInit{
   }
 
   /**
-   * Get percentage value attribute to progress
-   * @param maxValue : max value into array
-   * @param attributeValue : number of each attribute
+   * Get percentage value from the attribute to show in the progress barchart
+   * @param maxValue : max value from the array
+   * @param attributeValue : number of the attribute value
    */
-  getPercentageProgressValue(maxValue, attributeValue) {
+  getPercentageProgressValue(maxValue: number, attributeValue: number) {
     if (attributeValue === 0 || maxValue === null || maxValue === undefined || maxValue === 0) {
       return 0;
     }
@@ -120,5 +119,11 @@ export class ListComponent implements OnInit{
   }
 }
 
+//TODO documentar
+export interface StarshipData {
+  name: string;
+  percentage: number;
+  attributeValue: number;
+}
 
 
