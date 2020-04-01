@@ -41,11 +41,28 @@ describe('ListComponent', () => {
     expect(compiled.querySelectorAll('.progress div').length).toEqual(37);
   });
 
-  it('first crew number should be 6', () => {
+  it('Should show Belbullab-22 starfighter starship', () => {
     fixture.detectChanges();
     expect(compiled.querySelector('.progress-name').textContent).toContain('Belbullab-22 starfighter');
   });
 
+  it('Should show 6 like a value attribute', () => {
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value').textContent).toContain('6');
+  });
+
+  it('Should show 3 like a value attribute', () => {
+    fixture.detectChanges();
+    expect(compiled.querySelector('.attribute-value')[3].textContent).toContain('3');
+  });
+
+  button = querySelector('.btn-secondary input')[1].nativeElement;
+  it('Should show 3 like a value attribute', () => {
+    button.click();
+    fixture.detectChanges();
+    expect(button.checked).toBeTruthy();
+    expect(compiled.querySelector('.attribute-value')[3].textContent).toContain('3');
+  });
+
 });
-//
-// document.querySelectorAll('.progress-name')[2]
+

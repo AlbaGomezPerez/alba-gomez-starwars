@@ -119,7 +119,7 @@ export class ListComponent implements OnInit{
   }
 }
 
-//TODO documentar
+// Assign data type of typescript to object values
 export interface StarshipData {
   name: string;
   percentage: number;
