@@ -30,13 +30,13 @@ export class ListComponent implements OnInit{
    * @param orderCriteria : attribute to order
    */
   requestStarships(orderCriteria: string) {
-    this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
+    this.json.getJson('https://swapi-graphql.netlify.app/.netlify/functions/index', orderCriteria).subscribe({
       next: (starships: SearchResponse ) => {
         if (starships === undefined || starships === null || starships.data === undefined ||
-                   starships.data === null || starships.data.allStarships.length === 0)  {
+                   starships.data === null || starships.data.allStarships.starships.length === 0)  {
           this.error = true;
         } else {
-          const allStarships: Array<Starship> = starships.data.allStarships;
+          const allStarships: Array<Starship> = starships.data.allStarships.starships;
           this.setShipAttribute(orderCriteria);
 
           const maxValue = this.maxAttributeValueByShipAttribute(this.shipAttribute, allStarships);
