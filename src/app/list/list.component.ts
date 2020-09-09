@@ -26,7 +26,7 @@ export class ListComponent implements OnInit{
   /**
    * Get data from the API
    * Check the array contains data, if it doesn't, show an error message
-   * Fill stars-hips list with attributes selected by the button
+   * Fill starships list with attributes selected by the button
    * @param orderCriteria : attribute to order
    */
   requestStarships(orderCriteria: string) {
