@@ -30,7 +30,7 @@ export class ListComponent implements OnInit{
    * @param orderCriteria : attribute to order
    */
   requestStarships(orderCriteria: string) {
-    this.json.getJson('https://swapi.graph.cool/', orderCriteria).subscribe({
+    this.json.getJson('http://graphql.org/swapi-graphql', orderCriteria).subscribe({
       next: (starships: SearchResponse ) => {
         if (starships === undefined || starships === null || starships.data === undefined ||
                    starships.data === null || starships.data.allStarships.length === 0)  {

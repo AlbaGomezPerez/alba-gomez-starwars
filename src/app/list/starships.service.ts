@@ -15,7 +15,7 @@ export class StarshipsService {
    * Search starships making a Post to the API
    */
   getJson(url: string, orderCriteria: string) {
-    return this.http.post<SearchResponse>(url, '{ "query": "query { allStarships(orderBy: ' + orderCriteria + ' ){ cargoCapacity costInCredits id name crew hyperdriveRating length maxAtmospheringSpeed passengers} } " }', {
+    return this.http.post<SearchResponse>(url, '{ "query": "query { allStarships {(orderBy: ' + orderCriteria + ' ){ cargoCapacity costInCredits id name crew hyperdriveRating length maxAtmospheringSpeed passengers} } " }', {
       headers: {
         'Content-Type' : 'application/json',
         'Access-Control-Allow-Origin': '*',
